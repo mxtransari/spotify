@@ -5,7 +5,7 @@ let songs = [];
 
 // Function to fetch the songs from the server
 async function getSongs() {
-    let a = await fetch("https://mxtransari.github.io/songs/");
+    let a = await fetch("https://mxtransari.github.io/songs/songs.json");
     let response = await a.text();
     console.log(response);
 
