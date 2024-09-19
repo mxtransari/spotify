@@ -26,15 +26,15 @@ async function getSongs() {
 
 // Function to play music and update the UI with song details
 const playMusic = (track, songName) => {
-    const currentSong = document.getElementById('audio'); // Find the audio element
+    const currentSong = document.getElementById('audio');
     if (!currentSong) {
-        console.error("Audio element not found!"); // Log error if it's missing
+        console.error("Audio element not found!");
         return;
     }
-    console.log("Playing:", track); // Log which song is playing
+    console.log("Playing:", track);
 
-    currentSong.src = "/songs/" + track; // Set the song source to play
-    currentSong.play(); // Play the song
+    currentSong.src = "https://mxtransari.github.io/songs/" + track;
+    currentSong.play();
 
     // Update the song name in the UI
     document.getElementById('song-name').innerText = songName;
@@ -45,21 +45,21 @@ const playMusic = (track, songName) => {
 
 // Function to play the next song
 const playNextSong = () => {
-    currentSongIndex = (currentSongIndex + 1) % songs.length; // Loop back to the first song
+    currentSongIndex = (currentSongIndex + 1) % songs.length;
     const nextSong = songs[currentSongIndex];
-    playMusic(nextSong, nextSong.replaceAll("%20", " ")); // Play the next song
+    playMusic(nextSong, nextSong.replaceAll("%20", " "));
 };
 
 // Function to play the previous song
 const playPreviousSong = () => {
-    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length; // Loop back to the last song if needed
+    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
     const prevSong = songs[currentSongIndex];
-    playMusic(prevSong, prevSong.replaceAll("%20", " ")); // Play the previous song
+    playMusic(prevSong, prevSong.replaceAll("%20", " "));
 };
 
 // Main function to fetch songs and create the song list
 async function main() {
-    songs = await getSongs(); // Get the list of all the songs
+    songs = await getSongs();
     console.log(songs);
 
     let songUL = document.querySelector(".songList ul");
@@ -79,8 +79,8 @@ async function main() {
     Array.from(document.querySelectorAll(".songList li")).forEach((e, index) => {
         e.addEventListener("click", () => {
             let songName = e.querySelector(".info div:first-child").textContent.trim();
-            currentSongIndex = index; // Set the current song index when a song is clicked
-            playMusic(songName, songName);  // Ensure the song name is passed to playMusic
+            currentSongIndex = index;
+            playMusic(songName, songName);
         });
     });
 }
@@ -108,7 +108,6 @@ audio.ontimeupdate = () => {
     const progress = (audio.currentTime / audio.duration) * 100;
     seekbar.value = progress;
 
-    // Update current time display
     let minutes = Math.floor(audio.currentTime / 60);
     let seconds = Math.floor(audio.currentTime % 60);
     if (seconds < 10) seconds = "0" + seconds;
